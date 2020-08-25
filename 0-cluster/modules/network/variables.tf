@@ -1,20 +1,18 @@
 variable "project" {
-  default = "identity-graph-285408"
+  type = string
 }
 
 variable "cluster_name" {
-  type    = string
-  default = "dev"
+  type = string
+
 }
 
 variable "location" {
-  type    = string
-  default = "europe-west1-c"
+  type = string
 }
 
 variable "region" {
-  type    = string
-  default = "europe-west1"
+  type = string
 }
 
 variable "project_services" {

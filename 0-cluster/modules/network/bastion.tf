@@ -7,15 +7,15 @@ locals {
 resource "google_service_account" "bastion" {
   account_id   = format("%s-bastion-sa", var.cluster_name)
   display_name = "GKE Bastion SA"
-  project = var.project
+  project      = var.project
 }
 
 // Allow access to the Bastion Host via SSH
 resource "google_compute_firewall" "bastion-ssh" {
-  name          = format("%s-bastion-ssh", var.cluster_name)
-  network       = google_compute_network.network.name
-  direction     = "INGRESS"
-  project       = var.project
+  name      = format("%s-bastion-ssh", var.cluster_name)
+  network   = google_compute_network.network.name
+  direction = "INGRESS"
+  project   = var.project
   // IAP IP's
   source_ranges = ["35.235.240.0/20"]
 
@@ -39,11 +39,11 @@ data "template_file" "startup_script" {
 
 // The Bastion Host
 resource "google_compute_instance" "bastion" {
-  name = local.hostname
+  name         = local.hostname
   machine_type = "g1-small"
-  zone = var.location
-  project = var.project
-  tags = ["bastion"]
+  zone         = var.location
+  project      = var.project
+  tags         = ["bastion"]
 
   // Specify the Operating System Family and version.
   boot_disk {
@@ -53,8 +53,8 @@ resource "google_compute_instance" "bastion" {
   }
 
   scheduling {
-    preemptible = true
-            automatic_restart = false
+    preemptible       = true
+    automatic_restart = false
 
   }
 
@@ -63,8 +63,8 @@ resource "google_compute_instance" "bastion" {
 
   // Define a network interface in the correct subnet.
   network_interface {
-    subnetwork = google_compute_subnetwork.subnetwork.name
-  subnetwork_project = var.project
+    subnetwork         = google_compute_subnetwork.subnetwork.name
+    subnetwork_project = var.project
 
   }
 
@@ -72,7 +72,7 @@ resource "google_compute_instance" "bastion" {
   allow_stopping_for_update = true
 
   service_account {
-    email = google_service_account.bastion.email
+    email  = google_service_account.bastion.email
     scopes = ["cloud-platform"]
   }
 

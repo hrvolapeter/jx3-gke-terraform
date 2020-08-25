@@ -9,13 +9,17 @@ output "bastion_kubectl" {
 }
 
 output "bastion_ip" {
-    value = google_compute_instance.bastion.network_interface.0.network_ip 
-}
-
-output "ip_cidr_range" {
-    value = google_compute_subnetwork.subnetwork.ip_cidr_range
+  value = google_compute_instance.bastion.network_interface.0.network_ip
 }
 
 output "secondary_ip_range" {
-    value = google_compute_subnetwork.subnetwork.secondary_ip_range[0]
+  value = google_compute_subnetwork.subnetwork.secondary_ip_range
+}
+
+output "network_self_link" {
+  value = google_compute_network.network.self_link
+}
+
+output "subnetwork_self_link" {
+  value = google_compute_subnetwork.subnetwork.self_link
 }

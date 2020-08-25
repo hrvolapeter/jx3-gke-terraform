@@ -1,18 +1,20 @@
 variable "project" {
-    type = string
+
 }
 
 variable "cluster_name" {
-    type = string
-
+  type    = string
+  default = "dev"
 }
 
 variable "location" {
-    type = string
+  type    = string
+  default = "europe-west1-c"
 }
 
 variable "region" {
-    type = string
+  type    = string
+  default = "europe-west1"
 }
 
 variable "project_services" {
